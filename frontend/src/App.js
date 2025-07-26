@@ -34,7 +34,7 @@ const App = () => {
       title: 'Students Portal',
       titleAm: 'የተማሪዎች መግቢያ',
       description: 'Embark on your journey with the Divine Revelation as your guide',
-      descriptionAm: 'Allah ገለጣ እንደ መሪ ተጠቅመው ጉዞዎን ጀምሩ',
+      descriptionAm: 'ጉዞዎን ጀምሩ',
       gradient: 'from-teal-600 to-teal-800',
       icon: '👨‍🎓'
     }
@@ -99,10 +99,10 @@ const App = () => {
             <span className="text-3xl">🕌</span>
           </div>
           <h1 className="text-4xl font-bold text-white mb-2">
-            Al-Muhsin Quran Academy
+            nurel huda Academy
           </h1>
           <h2 className="text-2xl text-amber-300 font-medium mb-4">
-            ኣል-ሙሕሲን የቁርኣን ኣካዳሚ
+            ኑረል ሁዳ ማዕከል”
           </h2>
           <p className="text-gray-300 text-lg">
             Choose your portal to access the learning system
