@@ -34,7 +34,7 @@ const App = () => {
       title: 'Students Portal',
       titleAm: 'የተማሪዎች መግቢያ',
       description: 'Embark on your journey with the Divine Revelation as your guide',
-      descriptionAm: 'የእግዚአብሔር ገለጣ እንደ መሪ ተጠቅመው ጉዞዎን ጀምሩ',
+      descriptionAm: 'Allah ገለጣ እንደ መሪ ተጠቅመው ጉዞዎን ጀምሩ',
       gradient: 'from-teal-600 to-teal-800',
       icon: '👨‍🎓'
     }
