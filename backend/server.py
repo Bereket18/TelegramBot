@@ -168,81 +168,94 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     query = update.callback_query
     await query.answer()
     
-    user_lang = context.user_data.get('language', 'am')
-    
-    if query.data == "start_bot":
-        # Show language selection
-        keyboard = []
-        for lang_code, lang_data in LANGUAGES.items():
-            keyboard.append([InlineKeyboardButton(lang_data["name"], callback_data=f"lang_{lang_code}")])
+    try:
+        user_lang = context.user_data.get('language', 'am')
+        logger.info(f"Button callback: {query.data}, user_lang: {user_lang}")
         
-        reply_markup = InlineKeyboardMarkup(keyboard)
-        await query.edit_message_caption(
-            caption="እባክዎ ቋንቋዎን ይምረጡ / Please choose your language:",
-            reply_markup=reply_markup
-        )
-    
-    elif query.data.startswith("lang_"):
-        # Set language and show main menu
-        lang_code = query.data.split("_")[1]
-        context.user_data['language'] = lang_code
+        if query.data == "start_bot":
+            # Show language selection
+            keyboard = []
+            for lang_code, lang_data in LANGUAGES.items():
+                keyboard.append([InlineKeyboardButton(lang_data["name"], callback_data=f"lang_{lang_code}")])
+            
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            await query.edit_message_caption(
+                caption="እባክዎ ቋንቋዎን ይምረጡ / Please choose your language:",
+                reply_markup=reply_markup
+            )
         
-        # Update user language in database
-        await db.users.update_one(
-            {"user_id": str(query.from_user.id)},
-            {"$set": {"language": lang_code}}
-        )
+        elif query.data.startswith("lang_"):
+            # Set language and show main menu
+            lang_code = query.data.split("_")[1]
+            context.user_data['language'] = lang_code
+            logger.info(f"Language selected: {lang_code}")
+            
+            # Update user language in database
+            await db.users.update_one(
+                {"user_id": str(query.from_user.id)},
+                {"$set": {"language": lang_code}},
+                upsert=True
+            )
+            
+            await show_main_menu(query, lang_code)
         
-        await show_main_menu(query, lang_code)
-    
-    elif query.data == "main_menu":
-        await show_main_menu(query, user_lang)
-    
-    elif query.data == "channel":
-        channel_url = "https://t.me/channelname"
-        await query.edit_message_caption(
-            caption=f"📺 {LANGUAGES[user_lang]['channel']}\n\n{channel_url}",
-            reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton("🔙 ወደ ዋና ዝርዝር", callback_data="main_menu")
-            ]])
-        )
-    
-    elif query.data == "admin":
-        admin_url = "https://t.me/adminusername"
-        await query.edit_message_caption(
-            caption=f"👨‍💼 {LANGUAGES[user_lang]['admin']}\n\n{admin_url}",
-            reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton("🔙 ወደ ዋና ዝርዝር", callback_data="main_menu")
-            ]])
-        )
-    
-    elif query.data == "register":
-        admin_url = "https://t.me/adminusername" 
-        await query.edit_message_caption(
-            caption=f"📝 {LANGUAGES[user_lang]['register']}\n\nለምዝገባ አስተዳደርን ያነጋግሩ:\n{admin_url}",
-            reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton("🔙 ወደ ዋና ዝርዝር", callback_data="main_menu")
-            ]])
-        )
-    
-    elif query.data == "education_info":
-        await query.edit_message_caption(
-            caption=LANGUAGES[user_lang]['education_details'],
-            reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton("🔙 ወደ ዋና ዝርዝር", callback_data="main_menu")
-            ]])
-        )
-    
-    elif query.data == "restart":
-        # Restart flow - show language selection
-        keyboard = []
-        for lang_code, lang_data in LANGUAGES.items():
-            keyboard.append([InlineKeyboardButton(lang_data["name"], callback_data=f"lang_{lang_code}")])
+        elif query.data == "main_menu":
+            await show_main_menu(query, user_lang)
         
-        reply_markup = InlineKeyboardMarkup(keyboard)
+        elif query.data == "channel":
+            channel_url = "https://t.me/channelname"
+            await query.edit_message_caption(
+                caption=f"📺 {LANGUAGES[user_lang]['channel']}\n\n{channel_url}",
+                reply_markup=InlineKeyboardMarkup([[
+                    InlineKeyboardButton("🔙 ወደ ዋና ዝርዝር", callback_data="main_menu")
+                ]])
+            )
+        
+        elif query.data == "admin":
+            admin_url = "https://t.me/adminusername"
+            await query.edit_message_caption(
+                caption=f"👨‍💼 {LANGUAGES[user_lang]['admin']}\n\n{admin_url}",
+                reply_markup=InlineKeyboardMarkup([[
+                    InlineKeyboardButton("🔙 ወደ ዋና ዝርዝር", callback_data="main_menu")
+                ]])
+            )
+        
+        elif query.data == "register":
+            admin_url = "https://t.me/adminusername" 
+            await query.edit_message_caption(
+                caption=f"📝 {LANGUAGES[user_lang]['register']}\n\nለምዝገባ አስተዳደርን ያነጋግሩ:\n{admin_url}",
+                reply_markup=InlineKeyboardMarkup([[
+                    InlineKeyboardButton("🔙 ወደ ዋና ዝርዝር", callback_data="main_menu")
+                ]])
+            )
+        
+        elif query.data == "education_info":
+            await query.edit_message_caption(
+                caption=LANGUAGES[user_lang]['education_details'],
+                reply_markup=InlineKeyboardMarkup([[
+                    InlineKeyboardButton("🔙 ወደ ዋና ዝርዝር", callback_data="main_menu")
+                ]])
+            )
+        
+        elif query.data == "restart":
+            # Restart flow - show language selection
+            keyboard = []
+            for lang_code, lang_data in LANGUAGES.items():
+                keyboard.append([InlineKeyboardButton(lang_data["name"], callback_data=f"lang_{lang_code}")])
+            
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            await query.edit_message_caption(
+                caption="እባክዎ ቋንቋዎን ይምረጡ / Please choose your language:",
+                reply_markup=reply_markup
+            )
+            
+    except Exception as e:
+        logger.error(f"Error in button_callback: {e}")
         await query.edit_message_caption(
-            caption="እባክዎ ቋንቋዎን ይምረጡ / Please choose your language:",
-            reply_markup=reply_markup
+            caption="⚠️ Sorry, something went wrong. Please try /start again.",
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("🔄 Restart", callback_data="start_bot")
+            ]])
         )
 
 async def show_main_menu(query, lang_code):
