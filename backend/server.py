@@ -91,17 +91,17 @@ LANGUAGES = {
         "education_details": "📚 **تفاصيل البرنامج التعليمي:**\n\n📅 الأيام: 7 أيام في الأسبوع\n⏰ المدة: 30 دقيقة يومياً\n💰 التكلفة: 1500 بر إثيوبي\n\nللمزيد من المعلومات، اتصل بالإدارة."
     },
     "fr": {
-        "name": "🇫🇷 Français", 
-        "welcome": "Bienvenue! Ce bot vous aide à accéder aux programmes d'apprentissage du Coran.",
-        "choose_language": "Veuillez choisir votre langue:",
-        "main_menu": "Menu Principal - Choisissez une option:",
-        "channel": "⭐ Sélectionner la chaîne",
-        "admin": "📞 Administration",
-        "register": "📝 S'inscrire",
-        "education_info": "ℹ️ Informations éducatives", 
-        "restart": "🔁 Redémarrer",
-        "mini_app": "🔷 Portail d'apprentissage",
-        "education_details": "📚 **Détails du programme éducatif:**\n\n📅 Jours: 7 jours par semaine\n⏰ Durée: 30 minutes par jour\n💰 Coût: 1500 Birr éthiopien\n\nPour plus d'informations, contactez l'administration."
+        "name": "🇪🇹 Afaan Oromoo",
+          "welcome": "Baga nagaan dhuftan! Botichi kun sagantaalee barnoota Qur'aanaa argachuuf isin gargaara.",
+          "choose_language": "Afaan keessan filadhaa:",
+          "main_menu": "Menyuu Guddaa - Filannoo kee fili:",
+          "channel": "⭐ Chaanaalii filadhu",
+          "admin": "📞 Bulchiinsa",
+          "register": "📝 Galmaa'i",
+          "education_info": "ℹ️ Odeeffannoo Barnootaa",
+          "restart": "🔁 Itti fufi ykn jalqabi",
+          "mini_app": "🔷 Karraa Barnootaa",
+          "education_details": "📚 **Faayidaa Sagantaa Barnootaa:**\n\n📅 Guyyaa: Torban guutuu (7 guyyaa)\n⏰ Yeroo: Sa'aatii 0.5 (daqiiqaa 30) guyyaa guyyaatti\n💰 Kaffaltii: Birrii 1500\n\nOdeeffannoo dabalataaf bulchiinsa quunnamaa."
     },
     "so": {
         "name": "🇸🇴 Soomaali",
@@ -115,8 +115,21 @@ LANGUAGES = {
         "restart": "🔁 Dib u bilow",
         "mini_app": "🔷 Albaabka Waxbarashada", 
         "education_details": "📚 **Faahfaahinta Barnaamijka Waxbarashada:**\n\n📅 Maalmaha: 7 maalmood todobaadkii\n⏰ Muddada: 30 daqiiqadood maalintii\n💰 Qiimaha: 1500 Birr Ethiopian\n\nWixii macluumaad dheeraad ah, kala soo xidhiidh maamulka."
-    }
+    },
+    "tg": {
+          "name": "🇪🇷 ትግርኛ",
+          "welcome": "እንቋዕ ብደሓን መጻእካ! እዚ ቦት ንመምህር ጀብሮ ትምህርቲ ቁርኣን ይሓግዝካ።",
+          "choose_language": "ቋንቋኻ ኣምረፅ:",
+          "main_menu": "ዋና ምናሌ - ናይ ኣንታም ናፈቕ ኣምረፅ:",
+          "channel": "⭐ ቻናል ምምራጽ",
+          "admin": "📞 ኣመሓዳሪ",
+          "register": "📝 መዝግዓት",
+          "education_info": "ℹ️ ዝርዝር ትምህርቲ",
+          "restart": "🔁 ኣእሰር እንደገና",
+          "mini_app": "🔷 መደብ ትምህርቲ",
+          "education_details": "📚 **ዝርዝር ናይ ትምህርቲ ፕሮግራም:**\n\n📅 መዓልታት: 7 መዓልት ኩሉ ሰሙን\n⏰ ዓመታዊ ግዜ: 30 ደቒቕታት በመዓልቲ\n💰 ወጻኢ: 1500 ብር ኢትዮጵያዊ\n\nብዝተለዋዋጠ መረጃ፡ ኣመሓዳሪ ደው ይብሉ።"
 }
+
 
 # Telegram Bot Setup
 telegram_app = None
@@ -144,12 +157,15 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
 🕌 ኣስላም ዐላይኹም ወ ረሕመቱላሒ ወ በረካቱ
 
 እንኮዋን ወደ የቁርአን ትምህርት ቦት ደህና መጡ!
+🕌 እንኳን በደህና መጡ ወደ “ኑረል ሁዳ ቦት የአረብኛ ቃንቃ መማሪያ እና የሂፍዝ ማዕከል”!
+⚠️አፑን ለመክፈት በግራ በኩል ያለውን nurel huda🌎 ሚለውን በተን ይጫኑ(mini app)
+🕋 የመልካም ሥራ መነሻ መንገድ ነው።በዚህ ቦት ውስጥ ከአረበኛ ትምህርት ጀምሮ፣እስከ   ሂፍዝ: መመዝገቢያ፣ መረጃ፣ አስተዳዳሪ ግንኙነትና ቻናሎቻችን ያግኛሉ::
 
 በዚህ ቦት ላይ የሚያገኟቸው አገልግሎቶች:
-✅ ቁርአን ማንበብ እና መዘከር (ተጅዊድ፣ ሂፍዝ፣ ቃኢዳ፣ ኢጅዛ)
+✅ ቃኢዳ (መሠረታዊ አረብኛ እና ቁርኣን ንባብ)
 ✅ ተጅዊድ (ተከክለኛው የቁርአን አነባበብ መማር)
-✅ ሂፍዝ (ቁርአንን በቅርበት መዘከር)
-✅ ኢጅዛ (ፈተናና ፍቃድ የማግኘት ዕድል)
+✅ ሂፍዝ (ቁርኣንን በልብ ማስቀመጥ)
+✅ ነዝር (ጥራት ያለው የቁርኣን ንባብ)
 
 ለመጀመር ከታች ያለውን ቁልፍ ይጫኑ 👇
 """
