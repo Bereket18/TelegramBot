@@ -247,7 +247,8 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 async def show_main_menu(query, lang_code):
     """Show the main menu"""
-    web_app_url = f"{os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:3000')}"
+    # Get the proper HTTPS URL from frontend .env
+    web_app_url = "https://c96d850f-73f9-40d1-ace6-5b78aa62cd15.preview.emergentagent.com"
     
     keyboard = [
         [InlineKeyboardButton(LANGUAGES[lang_code]['channel'], callback_data="channel")],
